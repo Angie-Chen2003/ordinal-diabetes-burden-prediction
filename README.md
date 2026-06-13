@@ -48,31 +48,40 @@ project/
 │
 ├── R/
 │ ├── harmonization.R
+│ ├── descriptive_analysis.R
+│ ├── imputation.R
 │ ├── preprocessing.R
-│ ├── metrics.R
-│ ├── overfitting.R
+│ ├── model_preparing.R
+│ ├── function.R
+│ ├── tuning.R
+│ ├── model_ci.R
+│ ├── importance_ci.R
 │ ├── cv.R
-│ ├── importance.R
-│ ├── logistic_model.R
-│ ├── ordinal_forest.R
-│ ├── svm.R
-│ └── knn.R
+│ └── results_summary.R
 │
 ├── python/
-│ ├── models.py
+│ ├── metrics.py
+│ ├── utils.py
+│ ├── model.py
+│ ├── cv.py
 │ ├── tune_xgb_by_country.py
 │ ├── tune_coral_by_country.py
-│ ├── run_all_countries.py
 │ ├── xgb_tuning_configs.py
-│ └── coral_tuning_configs.py
+│ ├── coral_tuning_configs.py
+│ ├── importance.py
+│ └── run_all_countries.py
 │
 ├── outputs/
-│ ├── tables/
-│ ├── figures/
-│ ├── bootstrap/
-│ └── cv/
+│ ├── table1.xlsx/
+│ ├── table2.xlsx/
+│ ├── table3.xlsx/
+│ ├── importance/
+│ ├── cv.xlsx/
+│ ├── diabetes_distribution.xlsx/
+│ └── tunning_validation.xlsx/
 │
 ├── figures/
+│ ├── importance.png/
 │ └── workflow.png
 │
 └── README.md
@@ -322,42 +331,26 @@ Outputs included:
 
 ---
 
-# Pooled Dataset Analysis
+## Pooled Dataset Analysis
 
 To evaluate transferability and generalizability, two pooled datasets were created.
 
----
-
-## Full Pooled Dataset
+### Full Pooled Dataset
 
 Included all eligible participants from all countries.
 
-
-
-pool_data_1
-
-
----
-
-## Balanced Pooled Dataset
+### Balanced Pooled Dataset
 
 Randomly sampled:
 
 - 200 participants × 8 countries
 - Total sample size: N = 1,600
 
-
-Random seed:
-```r
-set.seed(123)
-
 Country membership was included as a factor variable.
 
 Country = factor(Country)
-```
----
 
-## Balanced Pooled Dataset
+Socioeconomic status (SES) was represented using purchasing power parity-adjusted SES (ses_ppp) to improve comparability across countries with different currencies and economic contexts.
 
 The same analytical workflow was applied to both pooled datasets.
 
@@ -394,6 +387,7 @@ Comparison of:
 - Country-specific models;
 - Full pooled models;
 - Balanced pooled models.
+- Transfer code: transfer.R, transfer.py
 
 ---
 ## Software

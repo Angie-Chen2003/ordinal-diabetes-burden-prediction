@@ -1,2 +1,442 @@
 # ordinal-diabetes-burden-prediction
 Reproducible analytical pipeline for comparing ordinal statistical and machine learning models to predict diabetes-related complication burden across international aging cohorts.
+
+--- 
+## Overview 
+
+This repository contains the complete analytical pipeline used to evaluate and compare ordinal statistical and machine learning models for predicting diabetes-related complication burden among older adults with diabetes across multiple international aging cohorts. 
+The framework was designed to investigate: 
+- Cross-country heterogeneity in diabetes-related burden;
+- Generalizability of prediction models across countries;
+- Differences between country-specific and pooled training strategies;
+- Predictor importance across populations;
+- Reproducible implementation of ordinal machine learning pipelines.
+
+---
+
+## Study Population
+
+Eight nationally representative aging cohorts were included:
+
+| Dataset | Country/Region |
+|----------|----------------|
+| HRS | United States |
+| MHAS | Mexico |
+| LASI | India |
+| CHARLS | China |
+| SHARE | Europe |
+| ELSA | United Kingdom |
+| KLoSA | South Korea |
+| HAALSI | South Africa |
+
+Participants were eligible if they:
+
+- were aged ≥ 55 years;
+- reported physician-diagnosed diabetes.
+
+---
+
+## Repository Structure
+
+
+
+project/
+├── data/
+│ ├── raw/
+│ ├── harmonized/
+│ └── processed/
+│
+├── R/
+│ ├── harmonization.R
+│ ├── preprocessing.R
+│ ├── metrics.R
+│ ├── overfitting.R
+│ ├── cv.R
+│ ├── importance.R
+│ ├── logistic_model.R
+│ ├── ordinal_forest.R
+│ ├── svm.R
+│ └── knn.R
+│
+├── python/
+│ ├── models.py
+│ ├── tune_xgb_by_country.py
+│ ├── tune_coral_by_country.py
+│ ├── run_all_countries.py
+│ ├── xgb_tuning_configs.py
+│ └── coral_tuning_configs.py
+│
+├── outputs/
+│ ├── tables/
+│ ├── figures/
+│ ├── bootstrap/
+│ └── cv/
+│
+├── figures/
+│ └── workflow.png
+│
+└── README.md
+
+
+---
+## Analytical Workflow
+
+### Step 1. Download Raw Data
+
+Download original datasets from the official cohort websites and obtain all required permissions.
+
+---
+
+### Step 2. Data Harmonization
+
+Variables were harmonized based on cohort-specific codebooks.
+
+Procedures included:
+
+- selecting corresponding variables;
+- standardizing coding schemes;
+- converting "Don't Know" and "Refused" responses into missing values.
+
+---
+
+### Step 3. Study Sample Selection
+
+Participants were restricted to:
+
+- Age ≥ 55 years;
+- Diabetes = Yes.
+
+---
+
+### Step 4. Descriptive Analysis
+
+Descriptive statistics were generated separately for each country.
+
+Categorical variables:
+
+- Frequency (n);
+- Percentage (%).
+
+Continuous variables:
+
+- Mean;
+- Standard deviation (SD);
+- Median;
+- Interquartile range (IQR).
+
+---
+
+### Step 5. Variable Transformation
+
+Examples include:
+
+- Oral diabetes medication + insulin → Diabetes treatment;
+- Social welfare + pension → Socioeconomic status;
+- Conversion of categorical variables into binary indicators when appropriate.
+
+---
+
+### Step 6. Missing Data Handling
+
+Procedures included:
+
+1. Excluding observations with missing outcome information;
+2. Evaluating missingness patterns;
+3. Performing imputation for predictors.
+
+---
+
+### Step 7. Outcome Construction and Data Splitting
+
+The ordinal outcome was derived from:
+
+- Vision impairment;
+- Pain severity.
+
+These variables were combined into a burden score.
+
+Data splitting:
+
+- Training set: 80%
+- Test set: 20%
+
+Within the training set:
+
+- Validation subsets were used for hyperparameter tuning;
+- Five-fold cross-validation was used for robustness assessment.
+
+The test set remained untouched until final evaluation.
+
+---
+
+### Step 8. Evaluation Functions
+
+Functions were implemented to calculate:
+
+#### Ordinal discrimination metrics
+
+- ORC (Ordinal C-index)
+- GC (Generalized C-index)
+- ADC (Average Dichotomous C-index)
+
+#### Classification metrics
+
+- Accuracy
+- Macro-F1
+
+#### Error metrics
+
+- MAE
+- MSE
+- MZOE
+- Macro-MAE
+
+Additional functions included:
+
+- Overfitting assessment;
+- Train–validation gap calculation;
+- Cross-validation evaluation.
+
+---
+
+## Models Evaluated
+
+Six ordinal prediction models were compared.
+
+| Model | Software |
+|---------|----------|
+| Ordinal Logistic Regression | R |
+| Ordinal Forest | R |
+| K-Nearest Neighbors (KNN) | R |
+| Support Vector Machine (SVM) | R |
+| Ordinal XGBoost | Python |
+| CORAL | Python |
+
+---
+
+## Hyperparameter Tuning
+
+Hyperparameters were selected using the training data only.
+
+Procedure:
+
+1. Train model on training subset;
+2. Evaluate on validation subset;
+3. Select optimal hyperparameters;
+4. Assess train–validation gap.
+
+The test set was never used during tuning.
+
+---
+
+## Final Model Evaluation
+
+After hyperparameter selection:
+
+1. Refit the model using the full training set;
+2. Evaluate once using the held-out test set.
+
+Performance metrics included:
+
+- Accuracy;
+- Macro-F1;
+- ORC;
+- GC;
+- ADC;
+- MAE;
+- MSE;
+- MZOE;
+- Macro-MAE.
+
+---
+
+## Predictor Effects and Variable Importance
+
+Predictor effects were estimated differently according to model type.
+
+### Ordinal Logistic Regression
+
+- Regression coefficients;
+- Odds ratios.
+
+### Ordinal Forest
+
+Permutation importance using ORC.
+
+### KNN
+
+Permutation importance using ORC.
+
+### SVM
+
+Permutation importance using ORC.
+
+### Ordinal XGBoost
+
+Permutation importance using ORC.
+
+### CORAL
+
+Permutation importance using ORC.
+
+---
+
+## Bootstrap Uncertainty Estimation
+
+Bootstrap resampling was performed on the held-out test set.
+
+### Performance metrics
+
+Bootstrap replicates:
+
+B = 500
+
+
+Outputs:
+
+- Point estimates;
+- 95% confidence intervals.
+
+### Variable importance
+
+Bootstrap replicates:
+
+B = 200
+
+Outputs:
+
+- Importance estimates;
+- 95% confidence intervals.
+
+---
+
+## Cross-Validation Robustness
+
+Five-fold cross-validation was conducted using the selected hyperparameters.
+
+Outputs included:
+
+- Fold-level performance;
+- Mean performance;
+- Standard deviations.
+
+---
+
+# Pooled Dataset Analysis
+
+To evaluate transferability and generalizability, two pooled datasets were created.
+
+---
+
+## Full Pooled Dataset
+
+Included all eligible participants from all countries.
+
+
+
+pool_data_1
+
+
+---
+
+## Balanced Pooled Dataset
+
+Randomly sampled:
+
+- 200 participants × 8 countries
+- Total sample size: N = 1,600
+
+
+Random seed:
+```r
+set.seed(123)
+
+Country membership was included as a factor variable.
+
+Country = factor(Country)
+
+---
+
+## Balanced Pooled Dataset
+
+The same analytical workflow was applied to both pooled datasets.
+
+Comparisons included:
+- Full pooled vs balanced pooled;
+- Pooled models evaluated on each country's test set;
+- Country-specific vs pooled training strategies.
+
+---
+
+## Main Outputs
+
+### Country-Specific Analyses
+- Final test performance with 95% CIs;
+- Hyperparameter summaries;
+- Cross-validation summaries;
+- Variable importance estimates.
+
+### Full Pooled Analyses
+- Final test performance with 95% CIs;
+- Hyperparameter summaries;
+- Cross-validation summaries;
+- Variable importance estimates.
+
+### Balanced Pooled Analyses
+- Final test performance with 95% CIs;
+- Hyperparameter summaries;
+- Cross-validation summaries;
+- Variable importance estimates.
+
+###Transfer Analyses
+
+Comparison of:
+- Country-specific models;
+- Full pooled models;
+- Balanced pooled models.
+
+---
+## Software
+### R
+
+Version: R 4.4.2
+
+Used for:
+- Data harmonization;
+- Ordinal logistic regression;
+- Ordinal forest;
+- KNN;
+- SVM;
+- Evaluation and visualization.
+
+### Python
+
+Version: Python 3.13.12
+
+Used for:
+- Ordinal XGBoost;
+- CORAL.
+
+---
+
+### Reproducibility
+
+All analyses were conducted using fixed random seeds whenever applicable. The analytical framework was designed to facilitate adaptation to additional aging cohorts with similar data structures. Researchers may modify the harmonization procedures while preserving the overall modeling framework.
+
+---
+
+## Citation
+
+If you use this repository, please cite:
+
+Chen Y, Wang X, Shao W, Beasley J, Shu H.
+
+Cross-Country Variation in Diabetes Self-Management and Its Association with Diabetes-Related Complication Burden: A Comparative Evaluation of Statistical and Machine Learning Models.
+
+---
+
+## License
+
+This repository is intended for academic and non-commercial use.
+
+Please ensure compliance with each cohort's individual data use agreement before reproducing analyses.

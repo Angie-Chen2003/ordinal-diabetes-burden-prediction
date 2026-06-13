@@ -151,7 +151,9 @@ Procedures included:
 
 1. Excluding observations with missing outcome information;
 2. Evaluating missingness patterns;
-3. Performing imputation for predictors.
+3. Performing imputation for predictors when appropriate.
+
+> **Note:** Most cohorts used multiple imputation by chained equations (MICE) for predictor imputation. In contrast, for the SHARE dataset, categorical variables were imputed using the mode and continuous variables using the mean due to cohort-specific data characteristics and preprocessing requirements.
 
 ---
 
@@ -413,7 +415,7 @@ Used for:
 
 ---
 
-### Reproducibility
+## Reproducibility
 
 All analyses were conducted using fixed random seeds whenever applicable. The analytical framework was designed to facilitate adaptation to additional aging cohorts with similar data structures. Researchers may modify the harmonization procedures while preserving the overall modeling framework.
 

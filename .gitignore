@@ -47,3 +47,30 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# data
+data/raw/
+data/harmonized/
+data/processed/
+
+# outputs
+outputs/
+
+# large files
+*.rds
+*.RData
+*.csv
+*.xlsx

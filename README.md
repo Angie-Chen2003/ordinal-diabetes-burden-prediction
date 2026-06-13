@@ -39,7 +39,7 @@ Participants were eligible if they:
 ## Repository Structure
 
 
-
+```text
 project/
 ├── data/
 │ ├── raw/
@@ -76,7 +76,7 @@ project/
 │ └── workflow.png
 │
 └── README.md
-
+```
 
 ---
 ## Analytical Workflow
@@ -289,7 +289,7 @@ Bootstrap resampling was performed on the held-out test set.
 
 Bootstrap replicates:
 
-B = 500
+B = 1000
 
 
 Outputs:
@@ -301,7 +301,7 @@ Outputs:
 
 Bootstrap replicates:
 
-B = 200
+B = 1000
 
 Outputs:
 
@@ -354,7 +354,7 @@ set.seed(123)
 Country membership was included as a factor variable.
 
 Country = factor(Country)
-
+```
 ---
 
 ## Balanced Pooled Dataset

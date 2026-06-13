@@ -388,7 +388,7 @@ Comparisons included:
 - Cross-validation summaries;
 - Variable importance estimates.
 
-###Transfer Analyses
+### Transfer Analyses
 
 Comparison of:
 - Country-specific models;

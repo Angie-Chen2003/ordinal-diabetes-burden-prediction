@@ -63,20 +63,19 @@ project/
 │ ├── utils.py
 │ ├── model.py
 │ ├── cv.py
-│ ├── tune_xgb_by_country.py
-│ ├── tune_coral_by_country.py
-│ ├── xgb_tuning_configs.py
-│ ├── coral_tuning_configs.py
-│ ├── importance.py
-│ └── run_all_countries.py
+│ ├── config.py
+│ ├── tuning.py
+│ ├── uncertainty.py
+│ └── run_all_results.py
 │
 ├── outputs/
-│ ├── table1.xlsx/
-│ ├── table2.xlsx/
-│ ├── table3.xlsx/
-│ ├── importance/
+│ ├── descriptive_analysis.xlsx/
+│ ├── country_performance.xlsx/
+│ ├── pool_performance.xlsx/
+│ ├── importance.zip/
 │ ├── cv.xlsx/
 │ ├── diabetes_distribution.xlsx/
+│ ├── parameters.xlsx/
 │ └── tunning_validation.xlsx/
 │
 ├── figures/

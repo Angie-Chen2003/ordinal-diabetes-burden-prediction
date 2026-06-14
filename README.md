@@ -84,6 +84,35 @@ project/
 │
 └── README.md
 ```
+---
+## Key R Scripts
+
+| File | Description |
+|--------|-------------|
+| [harmonization.R](R/harmonization.R) | Variable harmonization across cohorts |
+| [descriptive_analysis.R](R/Descriptive.R) | Generate Table 1 descriptive statistics |
+| [imputation.R](R/imputation.R) | Missing data handling |
+| [preprocessing.R](R/preprocessing.R) | Outcome construction and data preprocessing |
+| [model_preparing.R](R/model_prepare.R) | Prepare datasets for modeling |
+| [function.R](R/function.R) | Utility functions and evaluation metrics |
+| [tuning.R](R/tuning.R) | Hyperparameter tuning |
+| [model_ci.R](R/metric_ci.R) | Bootstrap confidence intervals for model performance |
+| [importance_ci.R](importance.zip) | Bootstrap confidence intervals for variable importance |
+| [results_summary.R](R/Results_summary.R) | Summarize final results |
+
+---
+## Key Python Scripts
+
+| File | Description |
+|--------|-------------|
+| [metrics.py](python/metrics.py) | Performance metric calculation |
+| [utils.py](python/data_utils.py) | Helper functions |
+| [model.py](python/models.py) | Ordinal XGBoost and CORAL models |
+| [cv.py](python/cv_robustness.py) | Cross-validation procedures |
+| [config.py](python/config.py) | Model configurations |
+| [tuning.py](python/tuning.py) | Hyperparameter tuning |
+| [uncertainty.py](python/uncertainty.py) | Bootstrap uncertainty estimation |
+| [run_all_results.py](python/run_pipeline.py) | Run complete analytical pipeline |
 
 ---
 ## Analytical Workflow

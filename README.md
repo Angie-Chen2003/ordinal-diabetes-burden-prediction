@@ -89,7 +89,7 @@ project/
 
 | File | Description |
 |--------|-------------|
-| [harmonization.R](harmonization.R) | Variable harmonization across cohorts |
+| [harmonization.R]([harmonization.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/4eeeafd00f3bd404894ea42e14e8f619f54d86bc/harmonization.R)) | Variable harmonization across cohorts |
 | [descriptive_analysis.R](R/Descriptive.R) | Generate Table 1 descriptive statistics |
 | [imputation.R](R/imputation.R) | Missing data handling |
 | [preprocessing.R](R/preprocessing.R) | Outcome construction and data preprocessing |

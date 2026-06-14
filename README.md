@@ -460,7 +460,7 @@ If you use this repository, please cite:
 
 Chen Y, Wang X, Shao W, Beasley J, Shu H.
 
-Cross-Country Variation in Diabetes Self-Management and Its Association with Diabetes-Related Complication Burden: A Comparative Evaluation of Statistical and Machine Learning Models.
+Global Transportability and Shared Architecture of Ordinal Machine Learning Frameworks for Predicting Diabetes Complication Burden: A Multinational Harmonized Cohort Study.
 
 ---
 

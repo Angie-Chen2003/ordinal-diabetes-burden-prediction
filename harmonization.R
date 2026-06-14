@@ -14,7 +14,9 @@ data_db = data_db %>%
     kidney             = , #wether have kidney disease
     medical_insurance  = , #wether have public medical insurance
     age                = , #age column
-    sex                =   #sex column
+    sex                = , #sex column
+    pension            = , #amount self reported pension
+    social welfare     =   #amount of received social benefits assistance
       ) %>%
   mutate(
     diabetes = case_when(

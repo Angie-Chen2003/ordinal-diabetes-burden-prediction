@@ -16,7 +16,7 @@ data_db = data_db %>%
     age                = , #age column
     sex                = , #sex column
     pension            = , #amount self reported pension
-    social welfare     =   #amount of received social benefits assistance
+    social_welfare     =   #amount of received social benefits assistance
       ) %>%
   mutate(
     diabetes = case_when(

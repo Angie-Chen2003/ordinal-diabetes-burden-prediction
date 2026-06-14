@@ -20,14 +20,14 @@ Eight nationally representative aging cohorts were included:
 
 | Dataset | Country/Region |
 |----------|----------------|
-| HRS | United States |
-| MHAS | Mexico |
-| LASI | India |
-| CHARLS | China |
-| SHARE | Europe |
-| ELSA | United Kingdom |
-| KLoSA | South Korea |
-| HAALSI | South Africa |
+| [HRS](https://hrsdata.isr.umich.edu/data-products/public-survey-data) | United States |
+| [MHAS](https://www.mhasweb.org/DataProducts/Home.aspx) | Mexico |
+| [LASI](https://www.iipsindia.ac.in/content/LASI-data) | India |
+| [CHARLS](https://charls.charlsdata.com/pages/data/111/en.html) | China |
+| [SHARE](https://share-eric.eu/data/become-a-user) | Europe |
+| [ELSA](https://datacatalogue.ukdataservice.ac.uk/series/series/200011#abstract) | United Kingdom |
+| [KLoSA](https://survey.keis.or.kr/eng/klosa/klosa01.jsp) | South Korea |
+| [HAALSI](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TW84UI) | South Africa |
 
 Participants were eligible if they:
 
@@ -159,7 +159,8 @@ Continuous variables:
 - Standard deviation (SD);
 - Median;
 - Interquartile range (IQR).
-
+[Get Descriptive Analysis]()
+[Diabetes Distribution Results]()
 ---
 
 ### Step 5. Variable Transformation
@@ -264,6 +265,7 @@ Procedure:
 4. Assess train–validation gap.
 
 The test set was never used during tuning.
+[Get Tuning Results]
 
 ---
 
@@ -285,7 +287,7 @@ Performance metrics included:
 - MSE;
 - MZOE;
 - Macro-MAE.
-
+[Get Each Country Results]()
 ---
 
 ## Predictor Effects and Variable Importance
@@ -346,6 +348,9 @@ Outputs:
 - Importance estimates;
 - 95% confidence intervals.
 
+[Get Outputs Table]()
+[Get Outputs Figure]()
+
 ---
 
 ## Cross-Validation Robustness
@@ -357,6 +362,7 @@ Outputs included:
 - Fold-level performance;
 - Mean performance;
 - Standard deviations.
+[Get Outputs]()
 
 ---
 
@@ -387,7 +393,7 @@ Comparisons included:
 - Full pooled vs balanced pooled;
 - Pooled models evaluated on each country's test set;
 - Country-specific vs pooled training strategies.
-
+[Get Results]()
 ---
 
 ## Main Outputs

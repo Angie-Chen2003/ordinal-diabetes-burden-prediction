@@ -89,7 +89,7 @@ project/
 
 | File | Description |
 |--------|-------------|
-| [harmonization.R](R/harmonization.R) | Variable harmonization across cohorts |
+| [harmonization.R](harmonization.R) | Variable harmonization across cohorts |
 | [descriptive_analysis.R](R/Descriptive.R) | Generate Table 1 descriptive statistics |
 | [imputation.R](R/imputation.R) | Missing data handling |
 | [preprocessing.R](R/preprocessing.R) | Outcome construction and data preprocessing |

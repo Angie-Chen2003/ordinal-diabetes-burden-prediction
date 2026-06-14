@@ -159,8 +159,8 @@ Continuous variables:
 - Standard deviation (SD);
 - Median;
 - Interquartile range (IQR).
-[Get Descriptive Analysis]()
-[Diabetes Distribution Results]()
+[Get Descriptive Analysis](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Table%201.xlsx)
+[Diabetes Distribution Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Diabetes%20Distribution%20for%20Each%20Country.xlsx)
 ---
 
 ### Step 5. Variable Transformation
@@ -265,7 +265,7 @@ Procedure:
 4. Assess train–validation gap.
 
 The test set was never used during tuning.
-[Get Tuning Results]
+[Get Tuning Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Train_Validation.xlsx)
 
 ---
 
@@ -287,7 +287,7 @@ Performance metrics included:
 - MSE;
 - MZOE;
 - Macro-MAE.
-[Get Each Country Results]()
+[Get Each Country Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Table%202.%20Model%20Performance%20for%20Each%20Country.xlsx)
 ---
 
 ## Predictor Effects and Variable Importance
@@ -348,8 +348,8 @@ Outputs:
 - Importance estimates;
 - 95% confidence intervals.
 
-[Get Outputs Table]()
-[Get Outputs Figure]()
+[Get Outputs Table](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Variable%20Importance.zip)
+[Get Outputs Figure](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/7437ed57e5c225e7b5a6d5a86b1ba777df0c2713/Figure3_variable_importance.png)
 
 ---
 
@@ -362,7 +362,7 @@ Outputs included:
 - Fold-level performance;
 - Mean performance;
 - Standard deviations.
-[Get Outputs]()
+[Get Outputs](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Cross-Validation%20Robustness%20Test.xlsx)
 
 ---
 
@@ -393,7 +393,7 @@ Comparisons included:
 - Full pooled vs balanced pooled;
 - Pooled models evaluated on each country's test set;
 - Country-specific vs pooled training strategies.
-[Get Results]()
+[Get Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Table%203.%20Pooled%20Data%20Performance.xlsx)
 ---
 
 ## Main Outputs

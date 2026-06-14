@@ -11,6 +11,7 @@ data_db = data_db %>%
     hypertension_med   = , #use of high blood control medication 
     pain               = , #self rated: have ever experienced pain in current life
     vision             = , #self rated: wether have vision problems
+    kidney             = , #wether have kidney disease
     medical_insurance  = , #wether have public medical insurance
     age                = , #age column
     sex                =   #sex column
@@ -90,6 +91,15 @@ data_db = data_db %>%
   ) %>%
   mutate(
     vision = case_when(
+      code_Yes ~ 1,
+      code_Refused ~ NA,
+      code_Unknown ~ NA,
+      code_NA ~ NA_real_,
+      code_No ~ 0
+    )
+  )%>%
+mutate(
+    kidney = case_when(
       code_Yes ~ 1,
       code_Refused ~ NA,
       code_Unknown ~ NA,

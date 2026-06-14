@@ -90,29 +90,29 @@ project/
 | File | Description |
 |--------|-------------|
 | [harmonization.R]([harmonization.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/4eeeafd00f3bd404894ea42e14e8f619f54d86bc/harmonization.R)) | Variable harmonization across cohorts |
-| [descriptive_analysis.R](R/Descriptive.R) | Generate Table 1 descriptive statistics |
-| [imputation.R](R/imputation.R) | Missing data handling |
-| [preprocessing.R](R/preprocessing.R) | Outcome construction and data preprocessing |
-| [model_preparing.R](R/model_prepare.R) | Prepare datasets for modeling |
-| [function.R](R/function.R) | Utility functions and evaluation metrics |
-| [tuning.R](R/tuning.R) | Hyperparameter tuning |
-| [model_ci.R](R/metric_ci.R) | Bootstrap confidence intervals for model performance |
-| [importance_ci.R](importance.zip) | Bootstrap confidence intervals for variable importance |
-| [results_summary.R](R/Results_summary.R) | Summarize final results |
+| [descriptive_analysis.R]([R/Descriptive.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/Descriptive.R)) | Generate Table 1 descriptive statistics |
+| [imputation.R]([R/imputation.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/imputation.R)) | Missing data handling |
+| [preprocessing.R]([R/preprocessing.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/preprocessing.R)) | Outcome construction and data preprocessing |
+| [model_preparing.R]([R/model_prepare.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/model_prepare.R)) | Prepare datasets for modeling |
+| [function.R]([R/function.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/function.R)) | Utility functions and evaluation metrics |
+| [tuning.R]([R/tuning.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/tuning.R)) | Hyperparameter tuning |
+| [model_ci.R]([R/metric_ci.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/metric_CI.R)) | Bootstrap confidence intervals for model performance |
+| [importance_ci.R]([importance.zip](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/importance.zip)) | Bootstrap confidence intervals for variable importance |
+| [results_summary.R]([R/Results_summary.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/Results_summary.R)) | Summarize final results |
 
 ---
 ## Key Python Scripts
 
 | File | Description |
 |--------|-------------|
-| [metrics.py](python/metrics.py) | Performance metric calculation |
-| [utils.py](python/data_utils.py) | Helper functions |
-| [model.py](python/models.py) | Ordinal XGBoost and CORAL models |
-| [cv.py](python/cv_robustness.py) | Cross-validation procedures |
-| [config.py](python/config.py) | Model configurations |
-| [tuning.py](python/tuning.py) | Hyperparameter tuning |
-| [uncertainty.py](python/uncertainty.py) | Bootstrap uncertainty estimation |
-| [run_all_results.py](python/run_pipeline.py) | Run complete analytical pipeline |
+| [metrics.py]([python/metrics.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/metrics.py)) | Performance metric calculation |
+| [utils.py]([python/data_utils.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/data_utils.py)) | Helper functions |
+| [model.py]([python/models.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/models.py)) | Ordinal XGBoost and CORAL models |
+| [cv.py]([python/cv_robustness.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/cv_robustness.py)) | Cross-validation procedures |
+| [config.py]([python/config.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/config.py)) | Model configurations |
+| [tuning.py]([python/tuning.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/tuning.py)) | Hyperparameter tuning |
+| [uncertainty.py]([python/uncertainty.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/uncertainty.py)) | Bootstrap uncertainty estimation |
+| [run_all_results.py]([python/run_pipeline.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/run_pipeline.py)) | Run complete analytical pipeline |
 
 ---
 ## Analytical Workflow
@@ -416,7 +416,7 @@ Comparison of:
 - Country-specific models;
 - Full pooled models;
 - Balanced pooled models.
-- Transfer code: transfer.R, transfer.py
+- Transfer code: [transfer.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/transfer.R), [transfer.py](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/run_pipeline.py)
 
 ---
 ## Software

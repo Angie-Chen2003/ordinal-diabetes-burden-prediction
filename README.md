@@ -97,7 +97,7 @@ project/
 | [function.R]([R/function.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/function.R)) | Utility functions and evaluation metrics |
 | [tuning.R]([R/tuning.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/tuning.R)) | Hyperparameter tuning |
 | [model_ci.R]([R/metric_ci.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/metric_CI.R)) | Bootstrap confidence intervals for model performance |
-| [importance_ci.R]([importance.zip](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/importance.zip)) | Bootstrap confidence intervals for variable importance |
+| [importance_ci.zip]([importance.zip](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/importance.zip)) | Bootstrap confidence intervals for variable importance |
 | [results_summary.R]([R/Results_summary.R](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/6d8e7dee505c2610bcba678c64a4884574d6c508/Results_summary.R)) | Summarize final results |
 
 ---

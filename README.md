@@ -172,8 +172,8 @@ Examples include:
 - Conversion of categorical variables into binary indicators when appropriate.
 
 **Note:** In country-specific analyses, SES was calculated using each country's original pension and social welfare income variables. In pooled analyses, these measures were converted to a PPP-adjusted indicator (`social_eco_ppp`) to facilitate meaningful comparisons across countries with different currencies and economic contexts.
-[Website]()
-[Code to Harmonization]()
+[Website](https://data.worldbank.org/indicator/PA.NUS.PPP)
+[Code to Harmonization](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/67b1bd251fb276814f55c8ad587a982557704230/GDP_PPP.rmd)
 
 ---
 

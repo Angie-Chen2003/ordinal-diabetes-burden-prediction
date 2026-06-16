@@ -1,0 +1,113 @@
+---
+title: "GDP_PPP"
+author: "XuZhi Wang"
+date: "2026-04-26"
+output: pdf_document
+---
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# STEP 1: Load PPP data from World Bank CSV file
+ppp <- read.csv(
+  "API_PA.NUS.PPP_DS2_en_csv_v2_1331.csv",
+  skip = 4
+)
+
+# STEP 2: Convert PPP data from wide format to long format
+ppp_long <- ppp %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "year",
+    values_to = "ppp_lcu_per_intd"
+  ) %>%
+  mutate(
+    year = as.numeric(sub("X", "", year))
+  )
+
+# STEP 3: Define selected countries
+selected_countries <- c(
+  # Main study countries
+  "United Kingdom",
+  "China",
+  "South Africa",
+  "United States",
+  "India",
+  "Mexico",
+  "Korea, Rep.",
+  
+  # EU-27 countries
+  "Austria",
+  "Belgium",
+  "Bulgaria",
+  "Croatia",
+  "Cyprus",
+  "Czechia",
+  "Denmark",
+  "Estonia",
+  "Finland",
+  "France",
+  "Germany",
+  "Greece",
+  "Hungary",
+  "Ireland",
+  "Italy",
+  "Latvia",
+  "Lithuania",
+  "Luxembourg",
+  "Malta",
+  "Netherlands",
+  "Poland",
+  "Portugal",
+  "Romania",
+  "Slovak Republic",
+  "Slovenia",
+  "Spain",
+  "Sweden"
+)
+
+# STEP 4: Extract selected countries for 2018 and 2017
+ppp_selected <- ppp_long %>%
+  dplyr::filter(
+    year %in% c(2018, 2017),
+    Country.Name %in% selected_countries
+  ) %>%
+  dplyr::select(
+    country_name = Country.Name,
+    country_code = Country.Code,
+    indicator_name = Indicator.Name,
+    indicator_code = Indicator.Code,
+    year,
+    ppp_lcu_per_intd
+  ) %>%
+  dplyr::arrange(country_name, year)
+
+# STEP 5: Check results
+ppp_selected
+
+# Check number of countries by year
+table(ppp_selected$year)
+
+# STEP 6: Export selected PPP data
+write.csv(
+  ppp_selected,
+  "diabetes_project_ppp_2017_2018_clean.csv",
+  row.names = FALSE
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

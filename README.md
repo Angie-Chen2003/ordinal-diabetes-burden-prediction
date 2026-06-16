@@ -171,6 +171,10 @@ Examples include:
 - Social welfare + pension → Socioeconomic status;
 - Conversion of categorical variables into binary indicators when appropriate.
 
+**Note:** In country-specific analyses, SES was calculated using each country's original pension and social welfare income variables. In pooled analyses, these measures were converted to a PPP-adjusted indicator (`social_eco_ppp`) to facilitate meaningful comparisons across countries with different currencies and economic contexts.
+[Website]()
+[Code to Harmonization]()
+
 ---
 
 ### Step 6. Missing Data Handling
@@ -266,6 +270,7 @@ Procedure:
 
 The test set was never used during tuning.
 [Get Tuning Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Train_Validation.xlsx)
+[Get Parameters](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/c83d36f61adbfe913a4dbb84eb38691b18f6aa9b/Paramenters.zip)
 
 ---
 

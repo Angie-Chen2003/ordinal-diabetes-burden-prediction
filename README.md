@@ -159,8 +159,11 @@ Continuous variables:
 - Standard deviation (SD);
 - Median;
 - Interquartile range (IQR).
+
 [Get Descriptive Analysis](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Table%201.xlsx)
+
 [Diabetes Distribution Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Diabetes%20Distribution%20for%20Each%20Country.xlsx)
+
 ---
 
 ### Step 5. Variable Transformation
@@ -172,7 +175,9 @@ Examples include:
 - Conversion of categorical variables into binary indicators when appropriate.
 
 **Note:** In country-specific analyses, SES was calculated using each country's original pension and social welfare income variables. In pooled analyses, these measures were converted to a PPP-adjusted indicator (`social_eco_ppp`) to facilitate meaningful comparisons across countries with different currencies and economic contexts.
+
 [Website](https://data.worldbank.org/indicator/PA.NUS.PPP)
+
 [Code to Harmonization](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/67b1bd251fb276814f55c8ad587a982557704230/GDP_PPP.rmd)
 
 ---
@@ -269,7 +274,9 @@ Procedure:
 4. Assess train–validation gap.
 
 The test set was never used during tuning.
+
 [Get Tuning Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Train_Validation.xlsx)
+
 [Get Parameters](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/c83d36f61adbfe913a4dbb84eb38691b18f6aa9b/Paramenters.zip)
 
 ---
@@ -292,7 +299,9 @@ Performance metrics included:
 - MSE;
 - MZOE;
 - Macro-MAE.
+
 [Get Each Country Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Table%202.%20Model%20Performance%20for%20Each%20Country.xlsx)
+
 ---
 
 ## Predictor Effects and Variable Importance
@@ -353,7 +362,9 @@ Outputs:
 - Importance estimates;
 - 95% confidence intervals.
 
+
 [Get Outputs Table](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Variable%20Importance.zip)
+
 [Get Outputs Figure](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/7437ed57e5c225e7b5a6d5a86b1ba777df0c2713/Figure3_variable_importance.png)
 
 ---
@@ -367,6 +378,7 @@ Outputs included:
 - Fold-level performance;
 - Mean performance;
 - Standard deviations.
+
 [Get Outputs](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Cross-Validation%20Robustness%20Test.xlsx)
 
 ---
@@ -398,7 +410,9 @@ Comparisons included:
 - Full pooled vs balanced pooled;
 - Pooled models evaluated on each country's test set;
 - Country-specific vs pooled training strategies.
+
 [Get Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Table%203.%20Pooled%20Data%20Performance.xlsx)
+
 ---
 
 ## Main Outputs

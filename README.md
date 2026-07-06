@@ -5,6 +5,7 @@ Reproducible analytical pipeline for comparing ordinal statistical and machine l
 ## Overview 
 
 This repository contains the complete analytical pipeline used to evaluate and compare ordinal statistical and machine learning models for predicting diabetes-related complication burden among older adults with diabetes across multiple international aging cohorts. 
+All statistical computations and machine learning workflows were executed using R version 4.4.2 and Python version 3.13.12. The primary R packages utilized included mice, ordinalForest, kknn, MASS, and ordinalNet, while the Python implementations relied on PyTorch and XGBOrdinal.
 The framework was designed to investigate: 
 - Cross-country heterogeneity in diabetes-related burden;
 - Generalizability of prediction models across countries;
@@ -479,7 +480,7 @@ If you use this repository, please cite:
 
 Chen Y, Wang X, Shao W, Beasley J, Shu H.
 
-Global Transportability and Shared Architecture of Ordinal Machine Learning Frameworks for Predicting Diabetes Complication Burden: A Multinational Harmonized Cohort Study.
+Global Transportability of Ordinal Machine Learning Models for Predicting Diabetes Complication Burden: A Multi-Region Harmonized Cohort Study.
 
 ---
 

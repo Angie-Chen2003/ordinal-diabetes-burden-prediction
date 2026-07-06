@@ -1,5 +1,5 @@
 """
-run_pipeline_full_tuning.py
+run_pipeline.py
 ============================
 Complete, fully-reproducible three-phase ordinal modelling pipeline.
 
@@ -8,13 +8,14 @@ grid search. Running this script on the same input datasets will
 independently re-derive every best-parameter set via grid search,
 making the full analysis reproducible end to end.
 
-Countries:
-  SHARE, KLoSA, UK (ELSA), SA (HAALSI), CHARLS, HRS, LASI, MAHS
+Confidence intervals use the bias-corrected and accelerated (BCa)
+bootstrap method (Efron & Tibshirani, 1993, Chapter 14), with
+B=1000 resamples. Raw bootstrap and jackknife replicates are saved
+alongside the summary tables to allow downstream reanalysis.
 
-Pool versions: Balanced_Pool, Full_Pool
-
-Models: Ordinal XGBoost, CORAL
-Grids:  XGB_TUNING_GRID, CORAL_TUNING_GRID (defined in config.py)
+Countries: SHARE, KLoSA, ELSA, HAALSI, CHARLS, HRS, LASI, MAHS
+Pools:     Balanced_Pool, Full_Pool
+Models:    Ordinal XGBoost, CORAL
 
 Phase 1 — Pool training (grid search for both pools)
 Phase 2 — Transfer evaluation (Pool models -> all 8 single countries)
@@ -28,29 +29,31 @@ Output files (saved to OUTPUT_DIR):
     04_BalancedPool_cv_robustness.xlsx
     05_BalancedPool_variable_importance.xlsx
     06_BalancedPool_grid_search_results.xlsx
-    07_FullPool_train_test_with_CI.xlsx
-    08_FullPool_table2_test_performance.xlsx
-    09_FullPool_best_parameters.xlsx
-    10_FullPool_cv_robustness.xlsx
-    11_FullPool_variable_importance.xlsx
-    12_FullPool_grid_search_results.xlsx
-    13_country_train_test_with_CI.xlsx
-    14_country_table2_test_performance.xlsx
-    15_country_best_parameters.xlsx
-    16_country_cv_robustness.xlsx
-    17_country_variable_importance.xlsx
-    18_country_grid_search_results.xlsx
-    19_transfer_all_pools_on_country_test_with_CI.xlsx
-    20_comparison_threeway.xlsx
+    07_BalancedPool_bootstrap_metric_raw.xlsx
+    08_FullPool_train_test_with_CI.xlsx
+    09_FullPool_table2_test_performance.xlsx
+    10_FullPool_best_parameters.xlsx
+    11_FullPool_cv_robustness.xlsx
+    12_FullPool_variable_importance.xlsx
+    13_FullPool_grid_search_results.xlsx
+    14_FullPool_bootstrap_metric_raw.xlsx
+    15_country_train_test_with_CI.xlsx
+    16_country_table2_test_performance.xlsx
+    17_country_best_parameters.xlsx
+    18_country_cv_robustness.xlsx
+    19_country_variable_importance.xlsx
+    20_country_grid_search_results.xlsx
+    21_country_bootstrap_metric_raw.xlsx
+    22_transfer_all_pools_on_country_test_with_CI.xlsx
+    23_comparison_threeway.xlsx
+    24_transfer_bootstrap_metric_raw.xlsx
 
 Runtime note:
-    With 32 CPU cores, the full grid search for both pools
-    (Balanced_Pool, Full_Pool) plus all 8 countries, x2 models
-    (see XGB_TUNING_GRID and CORAL_TUNING_GRID for the exact
-    parameter combinations), each followed by 1000-bootstrap CI
-    for metrics, 1000-bootstrap CI for permutation importance,
-    and 5-fold CV, is computationally heavy. Plan for several
-    hours of wall time.
+    With 32 CPU cores, the full grid search for both pools plus all
+    8 countries (x2 models each), followed by BCa bootstrap CI
+    (1000 bootstrap + n jackknife iterations per evaluation) and
+    permutation importance, is computationally heavy. Plan for
+    several hours of wall time.
 """
 
 from pathlib import Path
@@ -111,6 +114,7 @@ def _empty_outputs():
         "cv_fold_rows": [],
         "vi_tables": {},
         "grid_search_tables": {},
+        "boot_metric_tables": {},
     }
 
 
@@ -128,12 +132,12 @@ def _make_test_row_and_ci(country, model_name, dataset_label,
                            test_metrics, y_test, pred_test, proba_test):
     base = {"Country": country,
             **metrics_to_row(model_name, dataset_label, test_metrics)}
-    ci = bootstrap_metric_ci(
+    ci, boot_df, jack_df, _ = bootstrap_metric_ci(
         y_true=y_test, y_pred=pred_test, y_proba=proba_test,
         classes_=np.array([0, 1, 2]),
         B=BOOTSTRAP_B, random_state=RANDOM_STATE,
     )
-    return add_metric_ci_to_row(base, ci), ci
+    return add_metric_ci_to_row(base, ci), ci, boot_df
 
 
 def _make_table2_row(country, model_name, eval_type, test_metrics, ci):
@@ -164,8 +168,8 @@ def _run_full_evaluation(
         _make_train_row(country, model_name, final["train_metrics"])
     )
 
-    # Test row + CI
-    test_row, ci = _make_test_row_and_ci(
+    # Test row + BCa CI + raw bootstrap values
+    test_row, ci, boot_df = _make_test_row_and_ci(
         country, model_name, "Test",
         final["test_metrics"], y_test,
         final["test_pred"], final["test_proba"],
@@ -175,6 +179,12 @@ def _run_full_evaluation(
         _make_table2_row(country, model_name, "Country_Specific",
                          final["test_metrics"], ci)
     )
+
+    # Save raw bootstrap metric values
+    boot_df.insert(0, "Country", country)
+    boot_df.insert(1, "Model", model_name)
+    boot_df.insert(2, "Split", "Test")
+    outputs["boot_metric_tables"][f"{country}_{model_name}"] = boot_df
 
     # Parameters
     param_row = {
@@ -200,8 +210,8 @@ def _run_full_evaluation(
     outputs["cv_summary_rows"].extend(cv_summary.to_dict("records"))
     outputs["cv_fold_rows"].append(cv_folds)
 
-    # Variable importance
-    vi_df = permutation_importance_with_bootstrap_ci(
+    # Variable importance + BCa CI
+    vi_df, vi_boot_df, vi_jack_df = permutation_importance_with_bootstrap_ci(
         fitted_model=final["model"],
         X=X_test, y=y_test,
         metric_name=PRIMARY_IMPORTANCE_METRIC,
@@ -244,7 +254,7 @@ def run_pool_phase():
 
     fitted_pool_models = {}
     pool_feature_cols = {}
-    file_offsets = {name: 1 + i * 6
+    file_offsets = {name: 1 + i * 7
                     for i, name in enumerate(POOL_FILES.keys())}
 
     for pool_name, pool_file in POOL_FILES.items():
@@ -309,6 +319,8 @@ def run_pool_phase():
                    outputs["vi_tables"])
         _save_xlsx(OUTPUT_DIR / f"{offset+5:02d}_{tag}_grid_search_results.xlsx",
                    outputs["grid_search_tables"])
+        _save_xlsx(OUTPUT_DIR / f"{offset+6:02d}_{tag}_bootstrap_metric_raw.xlsx",
+                   outputs["boot_metric_tables"])
 
     return fitted_pool_models, pool_feature_cols
 
@@ -324,6 +336,7 @@ def run_transfer_phase(fitted_pool_models, pool_feature_cols):
 
     transfer_rows = []
     table2_rows = []
+    transfer_boot_tables = {}
 
     for pool_name, models in fitted_pool_models.items():
         for country in ALL_COUNTRIES:
@@ -371,7 +384,8 @@ def run_transfer_phase(fitted_pool_models, pool_feature_cols):
                         "Evaluation_Type": eval_label,
                         **metrics_to_row(model_name, "Transfer_Test", test_metrics),
                     }
-                    ci = bootstrap_metric_ci(
+
+                    ci, boot_df, jack_df, _ = bootstrap_metric_ci(
                         y_true=y_test, y_pred=pred, y_proba=proba,
                         classes_=np.array([0, 1, 2]),
                         B=BOOTSTRAP_B, random_state=RANDOM_STATE,
@@ -383,10 +397,20 @@ def run_transfer_phase(fitted_pool_models, pool_feature_cols):
                     t2["Pool"] = pool_name
                     table2_rows.append(t2)
 
+                    # Save raw bootstrap values
+                    boot_df.insert(0, "Country", country)
+                    boot_df.insert(1, "Pool", pool_name)
+                    boot_df.insert(2, "Model", model_name)
+                    transfer_boot_tables[f"{pool_name}_{country}_{model_name}"] = boot_df
+
                 except Exception as e:
                     print(f"  FAILED {model_name}: {repr(e)}")
 
-    return {"transfer_rows": transfer_rows, "table2_rows": table2_rows}
+    return {
+        "transfer_rows": transfer_rows,
+        "table2_rows": table2_rows,
+        "transfer_boot_tables": transfer_boot_tables,
+    }
 
 
 # ===========================================================================
@@ -452,24 +476,26 @@ def run_country_phase():
 
 
 def save_country_outputs(outputs):
-    _save_xlsx(OUTPUT_DIR / "13_country_train_test_with_CI.xlsx",
+    _save_xlsx(OUTPUT_DIR / "15_country_train_test_with_CI.xlsx",
                {"All": pd.DataFrame(outputs["train_validation_rows"])},
                group_by="Country")
-    _save_xlsx(OUTPUT_DIR / "14_country_table2_test_performance.xlsx",
+    _save_xlsx(OUTPUT_DIR / "16_country_table2_test_performance.xlsx",
                {"All": pd.DataFrame(outputs["table2_rows"])},
                group_by="Country")
-    _save_xlsx(OUTPUT_DIR / "15_country_best_parameters.xlsx",
+    _save_xlsx(OUTPUT_DIR / "17_country_best_parameters.xlsx",
                {"All": pd.DataFrame(outputs["parameter_rows"])},
                group_by="Model")
     cv_s = pd.DataFrame(outputs["cv_summary_rows"])
     cv_f = (pd.concat(outputs["cv_fold_rows"], ignore_index=True)
             if outputs["cv_fold_rows"] else pd.DataFrame())
-    _save_xlsx(OUTPUT_DIR / "16_country_cv_robustness.xlsx",
+    _save_xlsx(OUTPUT_DIR / "18_country_cv_robustness.xlsx",
                {"Summary": cv_s, "Fold-level": cv_f})
-    _save_xlsx(OUTPUT_DIR / "17_country_variable_importance.xlsx",
+    _save_xlsx(OUTPUT_DIR / "19_country_variable_importance.xlsx",
                outputs["vi_tables"])
-    _save_xlsx(OUTPUT_DIR / "18_country_grid_search_results.xlsx",
+    _save_xlsx(OUTPUT_DIR / "20_country_grid_search_results.xlsx",
                outputs["grid_search_tables"])
+    _save_xlsx(OUTPUT_DIR / "21_country_bootstrap_metric_raw.xlsx",
+               outputs["boot_metric_tables"])
 
 
 # ===========================================================================
@@ -557,9 +583,13 @@ def main():
     # Phase 2: Transfer evaluation
     transfer_result = run_transfer_phase(fitted_pool_models, pool_feature_cols)
     _save_xlsx(
-        OUTPUT_DIR / "19_transfer_all_pools_on_country_test_with_CI.xlsx",
+        OUTPUT_DIR / "22_transfer_all_pools_on_country_test_with_CI.xlsx",
         {"All": pd.DataFrame(transfer_result["transfer_rows"])},
         group_by="Country",
+    )
+    _save_xlsx(
+        OUTPUT_DIR / "24_transfer_bootstrap_metric_raw.xlsx",
+        transfer_result["transfer_boot_tables"],
     )
 
     # Phase 3: Single-country training (grid search)
@@ -572,7 +602,7 @@ def main():
         country_table2_rows=country_outputs["table2_rows"],
     )
     _save_xlsx(
-        OUTPUT_DIR / "20_comparison_threeway.xlsx",
+        OUTPUT_DIR / "23_comparison_threeway.xlsx",
         {"Comparison": comparison_df},
     )
 

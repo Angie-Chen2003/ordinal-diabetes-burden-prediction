@@ -134,6 +134,8 @@ Procedures included:
 - standardizing coding schemes;
 - converting "Don't Know" and "Refused" responses into missing values.
 
+[Variable Selecting Strategy](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/2af911c5681dad3c75a7571b835c3a0812887767/Variable%20harmonization.xlsx)
+
 ---
 
 ### Step 3. Study Sample Selection

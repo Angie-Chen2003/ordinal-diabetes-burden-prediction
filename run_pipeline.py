@@ -153,7 +153,7 @@ def _make_table2_row(country, model_name, eval_type, test_metrics, ci):
 def _run_full_evaluation(
     country, model_name, best_params,
     X_train, y_train, X_test, y_test,
-    X_full, y_full, outputs,
+    outputs,
     used_grid_search=True, grid_df=None,
 ):
     """Train, evaluate, CV robustness, variable importance for one country+model."""
@@ -202,7 +202,7 @@ def _run_full_evaluation(
     # CV robustness
     cv_summary, cv_folds = cross_validation_robustness(
         model_name=model_name, params=best_params,
-        X=X_full, y=y_full,
+        X=X_train, y=y_train,
         n_splits=CV_N_SPLITS, random_state=RANDOM_STATE,
     )
     cv_summary.insert(0, "Country", country)
@@ -293,7 +293,6 @@ def run_pool_phase():
                     best_params=best_params,
                     X_train=X_train, y_train=y_train,
                     X_test=X_test, y_test=y_test,
-                    X_full=X_pool, y_full=y_pool,
                     outputs=outputs,
                     used_grid_search=True, grid_df=grid_df,
                 )
@@ -465,7 +464,6 @@ def run_country_phase():
                     best_params=best_params,
                     X_train=X_train, y_train=y_train,
                     X_test=X_test, y_test=y_test,
-                    X_full=X, y_full=y,
                     outputs=outputs,
                     used_grid_search=True, grid_df=grid_df,
                 )

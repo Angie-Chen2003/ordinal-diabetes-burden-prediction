@@ -480,9 +480,9 @@ All analyses were conducted using fixed random seeds whenever applicable. The an
 
 If you use this repository, please cite:
 
-Chen Y, Wang X, Shao W, Beasley J, Shu H.
+Chen Y, Wang X, Shao W, Fan B, Beasley J, Shu H.
 
-Global Transportability of Ordinal Machine Learning Models for Predicting Diabetes Complication Burden: A Multi-Region Harmonized Cohort Study.
+International Multi-Cohort Ordinal Prediction of Diabetes Complication Burden in Older Adults.
 
 ---
 

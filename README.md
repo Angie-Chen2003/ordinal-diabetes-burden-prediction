@@ -276,7 +276,7 @@ Procedure:
 
 The test set was never used during tuning.
 
-[Get Tuning Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/0d9c4e79621a4ec9b16d4badf56f0c13f9f675b8/Train_Validation.xlsx)
+[Get Tuning Results](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/dfe718e3ebed7ca80c19294f29ee5f0fdc1d3f37/Train_Validation.zip)
 
 [Get Parameters](https://github.com/Angie-Chen2003/ordinal-diabetes-burden-prediction/blob/c83d36f61adbfe913a4dbb84eb38691b18f6aa9b/Paramenters.zip)
 
